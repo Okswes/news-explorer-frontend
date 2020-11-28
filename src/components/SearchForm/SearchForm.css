@@ -54,6 +54,7 @@
     height: 66px;
     background-color: #2f71e5;
     border: none;
+    outline: none;
     border-radius: 50px;
     position: absolute;
     bottom: 0px;
@@ -64,6 +65,15 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 24px;
+    cursor: pointer;
+}
+
+.searchform__button:hover {
+    background-color: #347EFF;
+}
+  
+  .searchform__button:active {
+    background-color: #2A65CC;
 }
 
 @media screen and (max-width: 1298px) {

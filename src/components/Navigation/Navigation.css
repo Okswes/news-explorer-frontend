@@ -27,6 +27,10 @@
     width: 100vw;
 }
 
+.navigation__container-mobile-black{
+    background-color: #FFFFFF;
+}
+
 .navigation__button-menu{
     display: none;
     background-image: url(../../images/menu.svg);
@@ -36,6 +40,10 @@
     cursor: pointer;
     border: none;
     background-color: transparent;
+}
+
+.navigation__button-menu-black{
+    background-image: url(../../images/menu-black.svg);
 }
 
 
@@ -137,6 +145,7 @@
     .navigation__container{
         display: none;
     }
+    
     .navigation__button-menu{
         display: flex;
     }

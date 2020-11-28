@@ -2,15 +2,32 @@ import React from 'react';
 import './PopupWithForm.css';
 
 function PopupWithForm(props) {
+    function overlayClose(evt) {
+        if (evt.target === evt.currentTarget) {
+            props.onClose()
+        }
+    }
+
+    function escClose(evt) {
+        if (evt.key === 'Escape') {
+            props.onClose()
+        }
+    }
+
+    React.useEffect(() => {
+        document.addEventListener('keydown', escClose);
+        return () => document.removeEventListener('keydown', escClose);
+      }, []);
+    
     return (
-        <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`}>
+        <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`} onClick={overlayClose}>
             <form className="popup__container">
                 <fieldset className="popup__fieldset">
                     <h3 className="popup__title">{props.title}</h3>
                     {props.children}
                     {
                         props.link !== 'succeed' ?
-                            <button className="popup__button popup__button_disabled" type="submit" onClick={props.onSubmit}>{props.link === 'login' ? 'Войти' : 'Зарегистрироваться'}</button>
+                            <button className="popup__button" type="submit" onClick={props.onSubmit}>{props.link === 'login' ? 'Войти' : 'Зарегистрироваться'}</button>
                             : ''
                     }
                 </fieldset>

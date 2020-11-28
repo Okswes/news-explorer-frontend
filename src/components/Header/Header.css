@@ -1,6 +1,7 @@
 .header{
     border-bottom: 1px solid rgba(145, 143, 143, 0.7);
     box-sizing: border-box;
+    z-index: 3;
 }
 
 .header__container{
@@ -26,6 +27,10 @@
 
 .header__mobile{
     background-color: #1A1B22;
+}
+
+.header__mobile-black{
+    background-color: #FFFFFF;
 }
 
 @media screen and (max-width: 990px) {

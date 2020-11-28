@@ -7,7 +7,7 @@ function Main(props) {
     return (
         <div className="Main">
             <div className="header-background">
-                <Header onOpenLoginPopup={props.onOpenLoginPopup} openMobileMenu={props.openMobileMenu} isOpen={props.isOpen} onClose={props.onClose} />
+                <Header onOpenLoginPopup={props.onOpenLoginPopup} openMobileMenu={props.openMobileMenu} isOpen={props.isOpen} isLoginPopupOpen={props.isLoginPopupOpen} onClose={props.onClose} />
                 <SearchForm />
             </div>
         </div>

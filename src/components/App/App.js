@@ -43,14 +43,14 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/">
-          <Main onOpenLoginPopup={openLoginPopup} openMobileMenu={openMobileMenu} isOpen={isMobileMenuOpen} onClose={closePopup} />
+          <Main onOpenLoginPopup={openLoginPopup} openMobileMenu={openMobileMenu} isOpen={isMobileMenuOpen} isLoginPopupOpen={isLoginPopupOpen} onClose={closePopup} />
           <Preloader />
           <NewsCardList />
           <About />
           <NotFound />
         </Route>
         <Route path="/saved-news">
-          <SavedNews />
+          <SavedNews openMobileMenu={openMobileMenu} isOpen={isMobileMenuOpen} onClose={closePopup} />
         </Route>
       </Switch>
       <PopupWithForm isOpen={isLoginPopupOpen} onOpenSignupPopup={openSignupPopup} onSubmit={closePopup} onClose={closePopup} title="Вход" link="login" children={

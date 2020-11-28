@@ -168,6 +168,9 @@
         max-height: 270px;
         padding: 22px 16px 21px;
     }
+    .newscard__message-right{
+        width: 150px;
+    }
 }
 
 @media screen and (max-width: 728px) {

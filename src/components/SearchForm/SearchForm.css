@@ -1,0 +1,140 @@
+.SearchForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.searchform_container{
+    margin: 80px auto;
+    max-width: 608px;
+}
+
+.searchform_title{
+    margin-top: 0;
+    font-family: Roboto Slab;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 64px;
+}
+
+.searchform_subtitle{
+    margin-top: 32px;
+    width: 545px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.searchform__form{
+    margin-top: 64px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    border-radius: 50px;
+}
+
+.searchform__input {
+    height: 64px;
+    width: 80%;
+    margin: 0;
+    border: none;
+    border-radius: 50px;
+    font-family: Roboto, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    padding-left: 16px;
+}
+  
+  .searchform__button {
+    width: 168px;
+    height: 66px;
+    background-color: #2f71e5;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color: white;
+    font-family: Roboto, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.searchform__button:hover {
+    background-color: #347EFF;
+}
+  
+  .searchform__button:active {
+    background-color: #2A65CC;
+}
+
+@media screen and (max-width: 1298px) {
+    .searchform_container{
+        margin: 38px auto;
+        max-width: 448px;
+    }
+    .searchform__form{
+        margin-top: 48px;
+        max-width: 448px;
+    }
+    .searchform_subtitle{
+        margin-top: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .searchform_title{
+        font-size: 36px;
+        line-height: 40px;
+        max-width: 385px;
+    }
+    .searchform__input {
+        height: 56px;
+    }
+    .searchform__button {
+        height: 58px;
+    }
+    .searchform_subtitle{
+        max-width: 452px;
+    }
+    
+}
+
+@media screen and (max-width: 496px) {
+    .SearchForm{
+        margin: 0 auto;
+        align-items: center;
+    }
+    .searchform__form{
+        flex-direction: column;
+        align-items: center;
+    }
+    .searchform_title{
+        max-width: 285px;
+    }
+    .searchform_subtitle{
+        max-width: 288px;
+    }
+    .searchform__input {
+        width: 288px;
+        padding-left: 8px;
+    }
+    .searchform__button {
+        margin-top: 16px;
+        width: 290px;
+        position: unset;
+    }
+    .searchform_container{
+        display: flex;
+        flex-direction: column;
+        margin: 30px auto;
+    }
+}

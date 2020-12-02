@@ -1,0 +1,22 @@
+.header-background{
+    background-image: url(../../images/header-background.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 576px;
+}
+
+@media screen and (max-width: 1000px) {
+    .header-background {
+      background-image: url(../../images/header-background768.png);
+      min-height: 400px;
+    }
+}
+  
+  @media screen and (max-width: 600px) {
+    .header-background {
+      background-position: center;
+      object-position: center;
+      object-fit: contain;
+    }
+}

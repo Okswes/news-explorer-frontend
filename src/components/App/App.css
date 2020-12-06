@@ -1,9 +1,18 @@
-.App {
-    max-width: 1440px;
-    font-family: 'Roboto', 'Roboto Slab', 'Source Sans Pro', 'Inter', Arial, sans-serif;
-    text-rendering: optimizeLegibility;
-    background-color: #fff;
-    color: white;
-    height: 100vh;
-    margin: 0 auto;
+.app {
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
+}
+
+button, a {
+  cursor: url(../../images/pointer.svg), default;
+}
+
+a:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s linear;
 }

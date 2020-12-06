@@ -1,68 +1,97 @@
 .about {
-    width: 80%;
-    margin: 50px auto auto;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 80px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 80px 15% 80px 104px;
+
 }
-.about__picture {
-    margin-bottom: 80px;
+
+.about__avatar {
+  width: 464px;
+  height: 464px;
+  border-radius: 50%;
+  margin-right: 50px;
+  object-fit: cover;
 }
-.about__text {
-    width: 600px;
-    margin-top: 70px;
+
+.about__data {
+  max-width: 50%;
 }
 
 .about__title {
-    font-family: 'Roboto';
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 46px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #1A1B22;
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 46px;
 }
 
-.about__subtitle {
-    font-family: 'Roboto';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #1A1B22;
+.about__text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
 }
 
-@media screen and (max-width: 1420px) {
-    .about__picture {
-        width: 232px;
-        height: 232px;
-    }
-    .about__title {
-        font-size: 30px;
-        margin: 0;
-    }
-    .about__text {
-        margin: 0 0 0 32px;
-    }
+@media screen and (max-width: 1024px) {
+  .about {
+    padding: 50px 5%;
+  }
+
+  .about__avatar {
+    width: 348px;
+    height: 348px;
+  }
+
+  .about__title {
+    margin: 0;
+  }
 }
 
-@media (max-width: 750px) {
-    .about {
-        width: 85%;
-        display: block;
-    }
-    .about__picture {
-        width: 272px;
-        height: 272px;
-        margin-bottom: 24px;
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 60px 40px;
+  }
 
-    }
-    .about__text {
-        width: 100%;
-        margin-top: 0;
-        margin-left: 0;
-    }
+  .about__avatar {
+    width: 232px;
+    height: 232px;
+  }
+
+  .about__title {
+    margin: -17px 0 0;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .about__data {
+    max-width: 424px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .about {
+    flex-direction: column;
+    padding: 32px 24px 80px;
+  }
+
+  .about__avatar {
+    align-self: center;
+    margin: 0 0 24px;
+  }
+
+  .about__title {
+    margin: 0;
+  }
+
+  .about__text {
+    margin: 16px 0;
+  }
+
+  .about__text:last-of-type {
+    margin-bottom: 0;
+  }
 }

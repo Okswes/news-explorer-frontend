@@ -1,33 +1,34 @@
-.NotFound{
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: #F5F6F7;
-    align-items: center;
+.notfound {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 86px;
 }
 
-.notFound__pic{
-    margin-top: 80px;
+.notfound__img {
+  width: 96px;
+  height: 96px;
 }
-.notFound__title{
-    margin-top: 31px;
-    font-family: Roboto Slab;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 26px;
-    line-height: 30px;
-    text-align: center;
-    color: #1A1B22;
+
+.notfound__title {
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  margin: 31px 0 16px;
 }
-.notFound__subtitle{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 24px;
-    text-align: center;
-    color: #B6BCBF;
-    max-width: 356px;    
-    margin-bottom: 80px;
+
+.notfound__subtitle {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #B6BCBF;
+  margin: 0 0 80px;
 }

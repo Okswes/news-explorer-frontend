@@ -1,87 +1,108 @@
 import React from 'react';
-import './App.css';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import About from '../About/About';
-import NewsCardList from '../NewsCardList/NewsCardList';
-import Preloader from '../Preloader/Preloader';
-import NotFound from '../NotFound/NotFound';
-import SavedNews from '../SavedNews/SavedNews';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import { Route, Switch } from 'react-router-dom';
-
-//Левел 3
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import './App.css';
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import SavedNewsheader from '../SavedNewsHeader/SavedNewsHeader';
+import SavedNews from '../SavedNews/SavedNews';
+import Footer from '../Footer/Footer';
+import RegisterPopup from '../RegisterPopup/RegisterPopup';
+import LoginPopup from '../LoginPopup/LoginPopup';
+import PopupSucces from '../PopupSucces/PopupSucces';
+import mainApi from '../../utils/MainApi';
+import newsApi from '../../utils/NewsApi';
+import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute'
 
 function App() {
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
-  const [isSignupPopupOpen, setIsSignupPopupOpen] = React.useState(false);
-  const [isSucceedPopupOpen, setIsSucceedPopupOpen] = React.useState(false);
-  const [isMobileMenuOpen, setisMobileMenuOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [user, setUser] = React.useState({ name: '', email: '' })
+  const [light, setLight] = React.useState(false);
+  const [regIsopen, setRegIsOpen] = React.useState(false);
+  const [loginIsopen, setLoginIsOpen] = React.useState(false);
+  const [succesIsopen, setSuccesIsOpen] = React.useState(false);
+  const [notFound, setNotFound] = React.useState(false);
+  const [ savedArticles, setSavedArticles ] = React.useState([]);
 
-  function openLoginPopup() {
-    setIsLoginPopupOpen(true);
+  function changeLoggedInStatus () {
+    setLoggedIn(!loggedIn);
   }
 
-  function openSignupPopup() {
-    setIsSignupPopupOpen(true);
+  const register = ({name, email, password}) => {
+    return mainApi.signup({name, email, password})
   }
 
-  function openSucceedPopup() {
-    setIsSucceedPopupOpen(true);
+  const login = ({email, password }) => {
+    return mainApi.signin({email, password})
   }
 
-  function openMobileMenu() {
-    setisMobileMenuOpen(true);
+  const newsRequest = (keyword) => {
+    return newsApi.searchRequest(keyword)
   }
 
-  function closePopup() {
-    setIsLoginPopupOpen(false);
-    setIsSignupPopupOpen(false);
-    setIsSucceedPopupOpen(false);
-    setisMobileMenuOpen(false);
+  const saveArticleRequest = (jwt, {
+    keyword,
+    title,
+    text,
+    date,
+    source,
+    link,
+    image,
+  }) => {
+    return mainApi.saveArticle(jwt, {
+      keyword,
+      title,
+      text,
+      date,
+      source,
+      link,
+      image,
+    })
   }
+
+  const deleteArticleRequest = (jwt, id) => {
+    return mainApi.deleteArticle(jwt, id);
+  }
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    setLoggedIn(!!jwt);
+    mainApi.getUserInfo(jwt)
+      .then((res) => {
+        setUser({
+          ...user,
+          name: res.name,
+          email: res.email,
+        });
+      })
+      .catch((err) => console.log(err));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn])
 
   return (
-    <div className="App">
-      <Switch>
-        <Route exact path="/">
-          <Main onOpenLoginPopup={openLoginPopup} openMobileMenu={openMobileMenu} isOpen={isMobileMenuOpen} isLoginPopupOpen={isLoginPopupOpen} onClose={closePopup} />
-          <Preloader />
-          <NewsCardList />
-          <About />
-          <NotFound />
-        </Route>
-        <Route path="/saved-news">
-          <SavedNews openMobileMenu={openMobileMenu} isOpen={isMobileMenuOpen} onClose={closePopup} />
-        </Route>
-      </Switch>
-      <PopupWithForm isOpen={isLoginPopupOpen} onOpenSignupPopup={openSignupPopup} onSubmit={closePopup} onClose={closePopup} title="Вход" link="login" children={
-        <>
-          <label className="popup__span">Email</label>
-          <input className="popup__item" type="email" placeholder="Введите почту" required />
-          <span className="popup__error"></span>
-          <label className="popup__span">Пароль</label>
-          <input className="popup__item " type="password" placeholder="Введите пароль" required />
-          <span className="popup__error popup__error_active">Недопустимый пароль</span>
-        </>
-      } />
-
-      <PopupWithForm isOpen={isSignupPopupOpen} onOpenLoginPopup={openLoginPopup} onSubmit={() => { closePopup(); openSucceedPopup(); }} onClose={closePopup} title="Регистрация" link="signup" children={
-        <>
-          <label className="popup__span">Email</label>
-          <input className="popup__item" type="email" placeholder="Введите почту" required />
-          <span className="popup__error popup__error_active">Ошибка</span>
-          <label className="popup__span">Пароль</label>
-          <input className="popup__item" type="password" placeholder="Введите пароль" required />
-          <span className="popup__error"></span>
-          <label className="popup__span">Имя</label>
-          <input className="popup__item" type="text" placeholder="Введите имя" required />
-          <span className="popup__error"></span>
-        </>
-      } />
-
-      <PopupWithForm isOpen={isSucceedPopupOpen} onOpenLoginPopup={openLoginPopup} onClose={closePopup} title="Пользователь успешно зарегистрирован!" link="succeed" />
-      <Footer />
+    <div className="app">
+      <CurrentUserContext.Provider value={user}>
+        <Header loggedIn={loggedIn} auth={changeLoggedInStatus} theme={light} openLogin={setLoginIsOpen} loginPopup={loginIsopen}/>
+        <Switch>
+          <Route exact path='/'>
+            <Main openLogin={setRegIsOpen} request={newsRequest} header={setLight} loggedIn={loggedIn} notFound={notFound} setResult={setNotFound} saveArticleRequest={saveArticleRequest} deleteArticle={deleteArticleRequest}/>
+          </Route>
+          <ProtectedRoute exact path='/saved-news'
+            loggedIn={loggedIn}
+            component={SavedNewsheader}
+            secondComponent={SavedNews}
+            header={setLight}
+            articles={savedArticles}
+            deleteArticle={deleteArticleRequest}
+            saved={savedArticles}
+            setSaved={setSavedArticles}
+          />
+        </Switch>
+          <LoginPopup isOpen={loginIsopen} link={setRegIsOpen} close={setLoginIsOpen} handleLogin={login} setLoggedIn={setLoggedIn}/>
+          <RegisterPopup isOpen={regIsopen} link={setLoginIsOpen} close={setRegIsOpen} succes={setSuccesIsOpen} handleRegister={register}/>
+          <PopupSucces isOpen={succesIsopen} close={setSuccesIsOpen} link={setLoginIsOpen}/>
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

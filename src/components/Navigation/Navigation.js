@@ -1,40 +1,45 @@
 import React from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Navigation.css';
-import logout from '../../images/logout.svg';
-import logoutblack from '../../images/logout-black.svg';
+import { Link, Route, useHistory } from 'react-router-dom';
+import logoutImg from '../../images/Navigation/logout.svg';
+import logoutBlack from '../../images/Navigation/logout-black.svg';
 
-function Navigation(props) {
-    return (
-        <nav className="Navigation">
+
+
+export default function Navigation (props) {
+  const { name } = React.useContext(CurrentUserContext);
+  const [userName, setUserName] = React.useState('');
+  const history = useHistory();
+
+  function openLoginPopup () {
+    props.openLogin(true);
+  }
+
+  function logOut () {
+    history.push('/');
+    props.auth();
+    localStorage.removeItem('jwt');
+  }
+
+  React.useEffect(() => {
+    setUserName(name);
+  }, [name])
+
+  return (
+      <nav className={`navigation ${props.open ? 'navigation_mobile-opened' : props.theme ? 'navigation_theme_dark' : ''}`}>
+        <ul className='navigation__list'>
             <Route exact path='/'>
-                {
-                    props.isLoginPopupOpen ? '' :
-                    props.isOpen ?
-                        <button className="navigation__button-menu" onClick={props.onClose}></button>
-                        : <button className="navigation__button-menu" onClick={props.openMobileMenu}></button>
-                }
-                <ul className={`${props.isOpen ? 'navigation__container-mobile' : 'navigation__container'}`}>
-                    <li><NavLink exact to='/' className={`${props.isOpen ? 'navigation__link-mobile' : 'navigation__link navigation__link-border'}`}>Главная</NavLink></li>
-                    <li><NavLink to='/saved-news' className={`${props.isOpen ? 'navigation__link-mobile' : 'navigation__link'}`}>Сохранённые статьи</NavLink></li>
-                    <li><span className={`${props.isOpen ? 'navigation__link-mobile navigation__button navigation__button-mobile' : 'navigation__link navigation__button'}`} onClick={() => { props.onClose(); props.onOpenLoginPopup();}}>Авторизоваться</span ></li>
-                </ul>
+              <li><Link to="/" className='navigation__item navigation__item_underline'>Главная</Link></li>
+              <li>{props.loggedIn || props.open ? <Link to='/saved-news' className='navigation__item'>Сохранённые статьи</Link> : ''}</li>
+              <li>{props.loggedIn ? <button className='navigation__btn' onClick={logOut}>{userName}<img className='navigation__logout' src={logoutImg} alt='иконка кнопки выхода'/></button> : <button className='navigation__btn' onClick={openLoginPopup}>Авторизироваться</button>}</li>
             </Route>
-
             <Route exact path='/saved-news'>
-                {
-                    props.isOpen ?
-                        <button className="navigation__button-menu navigation__button-menu-black" onClick={props.onClose}></button>
-                        : <button className="navigation__button-menu navigation__button-menu-black" onClick={props.openMobileMenu}></button>
-                }
-                <ul className={`${props.isOpen ? 'navigation__container-mobile navigation__container-mobile-black' : 'navigation__container'}`}>
-                    <li><NavLink exact to='/' className={`navigation__link_black ${props.isOpen ? 'navigation__link-mobile' : 'navigation__link'}`}>Главная</NavLink></li>
-                    <li><NavLink to='/saved-news' className={`navigation__link_black ${props.isOpen ? 'navigation__link-mobile' : 'navigation__link navigation__link-border navigation__link-border_black'}`}>Сохранённые статьи</NavLink></li>
-                    <li><button className={`navigation__button navigation__button_black ${props.isOpen ? 'navigation__link-mobile navigation__button-mobile' : ''}`}>Грета<img className="navigation__logout" src={logoutblack} alt="Выход" /></button></li>
-                </ul>
+              <li><Link to="/" className='navigation__item navigation__item_black '>Главная</Link></li>
+              <li>{props.loggedIn ? <Link to='/saved-news' className='navigation__item navigation__item_black  navigation__item_underline_black'>Сохранённые статьи</Link> : ''}</li>
+              <li>{props.loggedIn ? <button className='navigation__btn navigation__btn_black' onClick={logOut}>{userName}<img className='navigation__logout' src={logoutBlack} alt='иконка кнопки выхода'/></button> : <button className='navigation__btn' onClick={openLoginPopup}>Авторизироваться</button>}</li>
             </Route>
-        </nav >
-    )
+          </ul>
+      </nav>
+  )
 }
-
-export default Navigation

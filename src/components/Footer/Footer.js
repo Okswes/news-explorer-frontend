@@ -1,27 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
-import { NavLink } from 'react-router-dom';
-import Facebook from '../../images/facebook.png';
-import Github from '../../images/github.png';
+import github from '../../images/github.png';
+import facebook from '../../images/facebook.png';
 
-function Footer() {
-    return (
-        <footer className="Footer">
-            <div className="footer__container">
-            <p className="footer__copyright">&copy; 2020 Supersite, Powered by News API</p>
-            <nav className="footer__navigation">
-                <ul className="footer__links">
-                    <li><NavLink exact to='/' className="footer__link">Главная</NavLink></li>
-                    <li><a className="footer__link" href="https://praktikum.yandex.ru">Яндекс.Практикум</a></li>
-                </ul>
-                <ul className="footer__links footer__nav-links_icons">
-                    <li><a className="footer__link" href="https://github.com" target="_blank" rel="noreferrer"><img className="footer__icon" src={Github} alt="Гитхаб" /></a></li>
-                    <li><a className="footer__link" href="https://www.facebook.com" target="_blank" rel="noreferrer"><img className="footer__icon" src={Facebook} alt="Фейсбук" /></a></li>
-                </ul>
-            </nav>
-            </div>
-        </footer>
-    )
+export default function Footer (props) {
+
+  return (
+    <footer className='footer'>
+      <small className='footer__copyright'>© 2020 Supersite, Powered by News API</small>
+      <nav className='footer__nav'>
+        <ul className='footer__list'>
+          <li>
+            <ul className='footer__links'>
+            <li className='footer__list-item'><Link to="/" className='footer__link'>Главная</Link></li>
+            <li className='footer__list-item'><a href="https://praktikum.yandex.ru" target='_blank' rel="noopener noreferrer" className='footer__link'>Яндекс.Практикум</a></li>
+            </ul>
+          </li>
+          <li>
+            <ul className='footer__icons-container'>
+            <li className='footer__list-item'><a href="https://github.com" target='_blank' rel="noopener noreferrer" className='footer__link'><img src={github} alt='гитхаб'/></a></li>
+            <li className='footer__list-item'><a href="https://facebook.com" target='_blank' rel="noopener noreferrer" className='footer__link'><img src={facebook} alt='фэйсбук'/></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+  )
 }
-
-export default Footer

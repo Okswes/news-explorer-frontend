@@ -1,22 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
-import { NavLink, Route } from 'react-router-dom';
-import Navigation from '../Navigation/Navigation';
+import Logo from '../Logo/Logo';
+import Navigation from '../Navigation/Navigation'
 
-function Header(props) {
-    return (
-        <div className={`header ${props.isOpen ? 'header__mobile'  : ''} ${props.theme==='light' ? 'header__mobile-black' : ''}`}>
-            <div className='header__container'>
-                <Route exact path='/'>
-                    <NavLink exact to='/' className="header__logo" >NewsExplorer</NavLink>
-                </Route>
-                <Route exact path='/saved-news'>
-                    <NavLink exact to='/' className="header__logo header__logo_black">NewsExplorer</NavLink>
-                </Route>
-                <Navigation onOpenLoginPopup={props.onOpenLoginPopup} openMobileMenu={props.openMobileMenu} isOpen={props.isOpen} isLoginPopupOpen={props.isLoginPopupOpen} onClose={props.onClose} />
-            </div>
-        </div>
-    )
+export default function Header (props) {
+
+  const [mobileMenuOpened, setmobileMenuOpened] = React.useState(false);
+
+  function toggleMenu () {
+    setmobileMenuOpened(!mobileMenuOpened);
+  }
+
+  return (
+      <header className={`header ${mobileMenuOpened ? 'header_mobile-opened' : ''} ${props.loginPopup && mobileMenuOpened ? 'header_transparent' : ''} ${props.theme ? 'header_theme_light' : 'header_theme_dark'}`}>
+        <Link className='header__link' to='/'><Logo open={mobileMenuOpened}/></Link>
+        <button type='button' onClick={toggleMenu} className={`header__mobile-menu ${props.theme ? 'header__mobile-menu_black' : ''} ${mobileMenuOpened ? 'header__mobile-menu_close' : ''}`}></button>
+        <Navigation open={mobileMenuOpened} setMenu={toggleMenu} theme={props.theme} loggedIn={props.loggedIn} auth={props.auth} openLogin={props.openLogin}/>
+      </header>
+  )
 }
-
-export default Header
